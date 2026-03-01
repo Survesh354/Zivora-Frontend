@@ -19,7 +19,7 @@ function Checkout() {
             );
 
             const options = {
-                key: "rzp_test_SM3dOVBx1FSDZz",
+                key: import.meta.env.VITE_RAZORPAY_KEY_ID,
                 amount: order.amount,
                 currency: "INR",
                 name: "Zivora",
