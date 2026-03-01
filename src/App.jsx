@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Taskbar from "./components/taskbar";
 import Home from "./components/Home";
 import About from "./components/about";
-import Cart from "./components/Cart";
+import Cart from "./components/cart";
 import Wishlist from "./components/Wishlist";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
