@@ -10,6 +10,7 @@ function Checkout() {
     const navigate = useNavigate();
 
     const total = cart.reduce((sum, item) => sum + item.price, 0);
+    console.log("API URL:", import.meta.env.VITE_API_URL);
 
     const handlePayment = async () => {
         try {
