@@ -5,7 +5,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 function Cart() {
-    const { cart, removeFromCart } = useStore();
+    const {
+        cart,
+        removeFromCart,
+        increaseQuantity,
+        decreaseQuantity,
+        addToWishlist
+    } = useStore();
+
     const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
@@ -18,7 +25,10 @@ function Cart() {
         return () => unsubscribe();
     }, []);
 
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    const total = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
 
     return (
         <div className="pt-24 px-6 lg:px-16">
@@ -46,17 +56,62 @@ function Cart() {
                             key={item.id}
                             className="border p-4 mb-4 flex justify-between items-center"
                         >
-                            <div>
-                                <p className="font-medium">{item.name}</p>
-                                <p>₹{item.price}</p>
+                            <div className="flex items-center gap-4">
+
+                                {/* PRODUCT IMAGE */}
+                                <img
+                                    src={item.img}
+                                    alt={item.name}
+                                    className="w-20 h-20 object-cover rounded"
+                                />
+
+                                <div>
+                                    <p className="font-medium">{item.name}</p>
+                                    <p>₹{item.price}</p>
+
+                                    {/* QUANTITY CONTROLS */}
+                                    <div className="flex items-center gap-3 mt-2">
+                                        <button
+                                            onClick={() => decreaseQuantity(item.id)}
+                                            className="bg-gray-200 px-3 py-1"
+                                        >
+                                            -
+                                        </button>
+
+                                        <span>{item.quantity}</span>
+
+                                        <button
+                                            onClick={() => increaseQuantity(item.id)}
+                                            className="bg-gray-200 px-3 py-1"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
-                            <button
-                                onClick={() => removeFromCart(item.id)}
-                                className="text-red-500 text-xl font-bold hover:scale-125 transition"
-                            >
-                                ❌
-                            </button>
+                            <div className="flex flex-col items-end gap-3">
+
+                                {/* MOVE TO WISHLIST */}
+                                <button
+                                    onClick={() => {
+                                        addToWishlist(item);
+                                        removeFromCart(item.id);
+                                    }}
+                                    className="text-pink-500 hover:underline text-sm"
+                                >
+                                    ❤️ Move to Wishlist
+                                </button>
+
+                                {/* REMOVE BUTTON */}
+                                <button
+                                    onClick={() => removeFromCart(item.id)}
+                                    className="text-red-500 text-xl font-bold hover:scale-125 transition"
+                                >
+                                    ❌
+                                </button>
+
+                            </div>
                         </div>
                     ))}
 
