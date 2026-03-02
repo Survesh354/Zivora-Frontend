@@ -75,6 +75,7 @@ export function StoreProvider({ children }) {
                 decreaseQuantity,
                 addToWishlist,
                 removeFromWishlist,
+                clearCart,
             }}
         >
             {children}
