@@ -13,53 +13,49 @@ function Checkout() {
     console.log("API URL:", import.meta.env.VITE_API_URL);
 
     const handlePayment = async () => {
-        try {
-            await axios.post(
-                "https://zivora-backend.onrender.com/create-order",
-                { amount: total }
-            );
+  try {
+    console.log("API URL:", import.meta.env.VITE_API_URL);
 
-            const options = {
-                key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-                amount: order.amount,
-                currency: "INR",
-                name: "Zivora",
-                description: "Order Payment",
-                order_id: order.id,
+    const response = await axios.post(
+      "https://zivora-backend.onrender.com/create-order",
+      { amount: total }
+    );
 
-                handler: async function (response) {
-                    console.log("Payment successful!");
-                    console.log(response);
+    const order = response.data;   // 🔥 THIS LINE IS IMPORTANT
 
-                    try {
-                        const orderData = {
-                            items: cart,
-                            total: total,
-                            paymentId: response.razorpay_payment_id,
-                            date: new Date(),
-                        };
+    console.log("Order:", order);
 
-                        await addDoc(collection(db, "orders"), orderData);
+    const options = {
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: order.currency,
+      name: "Zivora",
+      description: "Order Payment",
+      order_id: order.id,
 
-                        console.log("Order saved to Firestore");
+      handler: async function (response) {
+        const orderData = {
+          items: cart,
+          total: total,
+          paymentId: response.razorpay_payment_id,
+          date: new Date(),
+        };
 
-                        clearCart();
-                        navigate("/success");
+        await addDoc(collection(db, "orders"), orderData);
 
-                    } catch (error) {
-                        console.error("Firestore error:", error);
-                    }
-                },
-            };
-
-            const rzp = new window.Razorpay(options);
-            rzp.open();
-
-        } catch (err) {
-            console.log(err);
-        }
+        clearCart();
+        navigate("/success");
+      },
     };
 
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+
+  } catch (error) {
+    console.error("Payment error:", error);
+  }
+};
+            
     return (
         <div className="pt-24 px-6 lg:px-16">
             <h1 className="text-3xl font-bold mb-6">Checkout</h1>
