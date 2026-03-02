@@ -14,8 +14,8 @@ function Checkout() {
 
     const handlePayment = async () => {
         try {
-            const { data: order } = await axios.post(
-                `${import.meta.env.VITE_API_URL}/create-order`,
+            await axios.post(
+                "https://zivora-backend.onrender.com/create-order",
                 { amount: total }
             );
 
