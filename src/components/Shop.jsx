@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useStore } from "../context/StoreContext";
 import p1 from "../assets/shop images/Men Jacket.jpg";
-import p2 from "../assets/shop images/Women dress.jpg";
-import p3 from "../assets/shop images/Men shirt.jpg";
-import p4 from "../assets/shop images/Women top.jpg";
+import p2 from "../assets/shop images/Women Dress.jpg";
+import p3 from "../assets/shop images/Men Shirt.jpg";
+import p4 from "../assets/shop images/Women Top.jpg";
 import p5 from "../assets/shop images/Men Hoodie.jpg";
 import p6 from "../assets/shop images/Women Skirt.jpg";
-import p7 from "../assets/shop images/Men tshirt.jpg";
+import p7 from "../assets/shop images/Men Tshirt.jpg";
 import p8 from "../assets/shop images/Women Jeans.jpg";
 import p9 from "../assets/shop images/Men Blazer.jpg";
-import p10 from "../assets/shop images/Women kurti.jpg";
-import p11 from "../assets/shop images/Men sweater.jpg";
-import p12 from "../assets/shop images/Women jumpsuit.jpg";
-import p13 from "../assets/shop images/Women watch.jpg";
+import p10 from "../assets/shop images/Women Kurti.jpg";
+import p11 from "../assets/shop images/Men Sweater.jpg";
+import p12 from "../assets/shop images/Women Jumpsuit.jpg";
+import p13 from "../assets/shop images/Women Watch.jpg";
 
 function Shop() {
     const { addToCart, addToWishlist } = useStore();
