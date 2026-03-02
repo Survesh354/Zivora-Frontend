@@ -4,6 +4,7 @@ import { auth } from "../config";
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -11,31 +12,19 @@ function Signup() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (auth.currentUser) {
-      navigate("/");
-    }
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        navigate("/");
-      }
-    });
-
-    return () => unsubscribe();
-  }, [navigate]);
 
   const handleSignup = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+
+      // 🔥 Sign out immediately after signup
+      await signOut(auth);
+
       navigate("/login");
     } catch (err) {
       setError(err.message);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-20">
       <div className="bg-white p-8 rounded-xl shadow-lg w-96">
