@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useStore } from "../context/StoreContext";
-import p1 from "../assets/shop images/Men jacket.jpg";
+import p1 from "../assets/shop images/Men Jacket.jpg";
 import p2 from "../assets/shop images/Women dress.jpg";
 import p3 from "../assets/shop images/Men shirt.jpg";
 import p4 from "../assets/shop images/Women top.jpg";
